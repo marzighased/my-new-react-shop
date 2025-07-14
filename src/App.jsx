@@ -32,10 +32,15 @@ class App extends Component {
             if(existingItem.amount > 1) {
                 existingItem.amount--;
             } else {
-                currentItems = currentItems.filter(item => item.name !== name);
+                currentItems = currentItems.filter(item => item.name !== name); 
             }
             this.setState({ items: currentItems });
         }
+    }
+
+    removeItem = (name) => {
+        let currentItems = this.state.items.filter(item => item.name !== name);
+        this.setState({ items: currentItems });
     }
 
     render() { 
@@ -48,7 +53,11 @@ class App extends Component {
                             <Product onAdd={() => this.addItem(1, 'Äpfel', 3.99)} image="apples.jpg" title="Äpfel"  description="Füge Äpfel zu deinem Warenkorb hin."/>
                             <Product onAdd={() => this.addItem(1, 'Birnen', 4.99)} image="birne.jpg" title="Birnen"  description="Füge Birne zu deinem Warenkorb hin."/>
                         </div>
-                        <ShoppingCart items={this.state.items}/>
+                        <ShoppingCart 
+                            items={this.state.items}
+                            onDecrease={this.decreaseItem}
+                            onRemove={this.removeItem}
+                        />
                    </div>
                </React.Fragment>;
     }

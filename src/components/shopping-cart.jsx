@@ -20,12 +20,32 @@ class ShoppingCart extends Component {
                 
                 {this.props.items.map(item => (
                     <div key={item.name} className="cart-item">
-                        <span>{item.amount}x {item.name}</span>
-                        <span className="item-price">
-                            {(item.amount * item.price).toFixed(2)}€
-                        </span>
+                        <div className="item-info">
+                            <span>{item.amount}x {item.name}</span>
+                            <span className="item-price">
+                                {(item.amount * item.price).toFixed(2)}€
+                            </span>
+                        </div>
+                        <div className="item-controls">
+                            <button 
+                                className="btn btn-sm btn-secondary me-1"
+                                onClick={() => this.props.onDecrease(item.name)}
+                            >
+                                -
+                            </button>
+                            <button 
+                                className="btn btn-sm btn-danger"
+                                onClick={() => this.props.onRemove(item.name)}
+                            >
+                                ×
+                            </button>
+                        </div>
                     </div>
                 ))}
+                
+                {this.props.items.length === 0 && (
+                    <p className="text-muted">Ihr Warenkorb ist leer</p>
+                )}
                 
                 {this.props.items.length > 0 && <hr />}
                 
